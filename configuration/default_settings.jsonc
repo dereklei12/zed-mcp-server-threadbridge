@@ -1,0 +1,5 @@
+{
+  /// Optional: Path to the project directory for memory storage.
+  /// If not set, ThreadBridge will use the current working directory.
+  // "project_path": "/path/to/your/project"
+}
