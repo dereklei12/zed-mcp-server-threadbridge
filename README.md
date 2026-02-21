@@ -6,12 +6,25 @@ ThreadBridge remembers context across conversations using hybrid semantic search
 
 ## Installation
 
+### From Extension Marketplace
+
 1. Open Zed
 2. Go to **Extensions** (cmd+shift+x)
 3. Search for "ThreadBridge"
 4. Click **Install**
 
 The extension will automatically download the appropriate binary for your platform.
+
+### Local Installation (Dev)
+
+1. Clone this repository:
+   ```sh
+   git clone https://github.com/dereklei12/zed-mcp-server-threadbridge.git
+   ```
+
+2. In Zed, open the command palette (cmd+shift+p) and run **zed: install dev extension**, then select the cloned directory.
+
+3. The extension will automatically download the `mcp-threadbridge` binary from [GitHub Releases](https://github.com/dereklei12/mcp-threadbridge/releases) on first use.
 
 ## Supported Platforms
 
