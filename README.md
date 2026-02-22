@@ -6,7 +6,7 @@ ThreadBridge remembers context across conversations using hybrid semantic search
 
 ## Installation
 
-### From Extension Marketplace
+### From Extension Marketplace (Pending)
 
 1. Open Zed
 2. Go to **Extensions** (cmd+shift+x)
