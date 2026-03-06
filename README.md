@@ -6,16 +6,18 @@ ThreadBridge remembers context across conversations using hybrid semantic search
 
 ## Installation
 
-### From Extension Marketplace (Pending)
+### From Extension Marketplace
 
 1. Open Zed
 2. Go to **Extensions** (cmd+shift+x)
 3. Search for "ThreadBridge"
 4. Click **Install**
 
-The extension will automatically download the appropriate binary for your platform.
+ThreadBridge is now available in the Zed Extension Marketplace. The extension will automatically download the appropriate binary for your platform.
 
 ### Local Installation (Dev)
+
+Dev extensions are compiled locally by Zed, so this installation method requires Rust via [rustup](https://www.rust-lang.org/tools/install). Rust is not required when installing ThreadBridge from the Zed Extension Marketplace.
 
 1. Clone this repository:
    ```sh
