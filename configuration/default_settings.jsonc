@@ -1,5 +1,11 @@
 {
   /// Optional: Path to the project directory for memory storage.
   /// If not set, ThreadBridge will use the current working directory.
-  // "project_path": "/path/to/your/project"
+  // "project_path": "/path/to/your/project",
+
+  /// Optional: Where to store thread data.
+  /// "true" (default) = local (<project_path>/.threadbridge/)
+  /// "false" = global (~/.threadbridge/projects/)
+  /// "/absolute/path" = custom (<path>/.threadbridge/)
+  // "storage": "true"
 }

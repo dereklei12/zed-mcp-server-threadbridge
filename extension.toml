@@ -1,7 +1,7 @@
 id = "mcp-server-threadbridge"
 name = "ThreadBridge MCP Server"
 description = "Model Context Protocol Server for persistent AI memory with hybrid semantic search"
-version = "0.1.0"
+version = "0.2.0"
 schema_version = 1
 authors = ["Derek <leiderek12@gmail.com>"]
 repository = "https://github.com/dereklei12/zed-mcp-server-threadbridge"

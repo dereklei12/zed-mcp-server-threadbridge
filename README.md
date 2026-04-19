@@ -46,6 +46,39 @@ Dev extensions are compiled locally by Zed, so this installation method requires
 
 Optionally set a `project_path` in Zed settings to specify which project's memory to use. If not set, the current working directory is used.
 
+## Retrieval Benchmark
+
+Runs entirely on local CPU with zero cloud dependency.
+
+**Config:** Arctic Embed M (768d) + BM25 hybrid + RRF fusion + BLL reranker (30%). Top-20, threshold 0.15.
+
+### LoCoMo (Session-level, 1986 QA pairs)
+
+![LoCoMo Recall and NDCG](assets/locomo_comparison.png)
+
+### LongMemEval (Session-level, 500 questions)
+
+![LongMemEval Comparison](assets/longmemeval.png)
+
+### Per-question-type breakdown (LoCoMo)
+
+![LoCoMo Per-Type](assets/locomo_per_type.png)
+
+### Metric definitions
+
+- **Recall@K (fractional):** fraction of correct sessions retrieved in top-K unique sessions. Standard IR recall.
+- **Recall_all@K (Ra@K):** binary — 1.0 iff *all* correct sessions are in top-K, else 0.0. Used by MemGAS for direct comparability.
+- **NDCG@K:** normalized discounted cumulative gain at session level.
+- **MRR:** mean reciprocal rank of first correct session.
+
+### Notes
+
+- LoCoMo dataset contains 10 conversations / 1986 QA pairs ([Maharana et al. 2024](https://github.com/snap-research/locomo)).
+- Baseline numbers from [MemGAS Table 2&3](https://arxiv.org/abs/2505.19549) (recall_all definition confirmed via [source code](https://github.com/quqxui/MemGAS/blob/main/src/retrieval/eval_utils.py)).
+- LongMemEval baseline from [Table 2&3](https://arxiv.org/abs/2410.10813) (ICLR 2025), using Stella V5 + dense retrieval.
+- ThreadBridge reports **both** recall variants for transparency. The `Ra@10` column is directly comparable to MemGAS.
+- End-to-end LLM-Judge scores (Hindsight, MemR3, Zep, Mem0) evaluate a different pipeline and are **not** comparable to retrieval-layer metrics.
+
 ## License
 
 MIT

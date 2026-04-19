@@ -14,6 +14,11 @@ struct ThreadBridgeSettings {
     /// Path to the project directory for memory storage.
     /// If not set, ThreadBridge will use the current working directory.
     project_path: Option<String>,
+    /// Where to store thread data.
+    /// - "true" (default): local storage at `<project_path>/.threadbridge/`
+    /// - "false": global storage at `~/.threadbridge/projects/`
+    /// - An absolute path: custom storage at `<path>/.threadbridge/`
+    storage: Option<String>,
 }
 
 struct ThreadBridgeExtension {
@@ -87,12 +92,16 @@ impl ThreadBridgeExtension {
             zed::make_file_executable(&binary_path)?;
 
             // Remove old versions
-            let entries =
-                fs::read_dir(".").map_err(|e| format!("failed to list working directory {e}"))?;
-            for entry in entries {
-                let entry = entry.map_err(|e| format!("failed to load directory entry {e}"))?;
-                if entry.file_name().to_str() != Some(&version_dir) {
-                    fs::remove_dir_all(entry.path()).ok();
+            if let Ok(entries) = fs::read_dir(".") {
+                for entry in entries.flatten() {
+                    if let Some(name) = entry.file_name().to_str() {
+                        if name.starts_with(BINARY_NAME)
+                            && name != version_dir
+                            && entry.path().is_dir()
+                        {
+                            fs::remove_dir_all(entry.path()).ok();
+                        }
+                    }
                 }
             }
         }
@@ -123,6 +132,9 @@ impl zed::Extension for ThreadBridgeExtension {
 
             if let Some(project_path) = settings.project_path {
                 env.push(("THREADBRIDGE_PROJECT_PATH".into(), project_path));
+            }
+            if let Some(storage) = settings.storage {
+                env.push(("THREADBRIDGE_STORAGE".into(), storage));
             }
         }
 
