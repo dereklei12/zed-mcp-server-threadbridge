@@ -44,7 +44,13 @@ Dev extensions are compiled locally by Zed, so this installation method requires
 
 ## Configuration
 
-Optionally set a `project_path` in Zed settings to specify which project's memory to use. If not set, the current working directory is used.
+Optional settings in Zed:
+
+- `project_path` — project directory for memory storage (default: current working directory)
+- `storage` — where to store thread data:
+  - `"true"` (default): local, at `<project_path>/.threadbridge/`
+  - `"false"`: global, at `~/.threadbridge/projects/`
+  - absolute path: custom location
 
 ## Retrieval Benchmark
 
