@@ -8,6 +8,7 @@ use zed_extension_api::{
 
 const REPO_NAME: &str = "dereklei12/mcp-threadbridge";
 const BINARY_NAME: &str = "mcp-threadbridge";
+const WEIGHTS_NAME: &str = "bll_v2.bin";
 
 #[derive(Debug, Deserialize, JsonSchema)]
 struct ThreadBridgeSettings {
@@ -103,6 +104,22 @@ impl ThreadBridgeExtension {
                         }
                     }
                 }
+            }
+        }
+
+        // Ensure BLL weights are present next to the binary. Best-effort: if
+        // the asset is missing or download fails, the binary will silently
+        // disable BLL reranking and core search still works.
+        let weights_path = format!("{version_dir}/{WEIGHTS_NAME}");
+        if !fs::metadata(&weights_path).map_or(false, |stat| stat.is_file()) {
+            if let Some(weights_asset) =
+                release.assets.iter().find(|a| a.name == WEIGHTS_NAME)
+            {
+                let _ = zed::download_file(
+                    &weights_asset.download_url,
+                    &weights_path,
+                    zed::DownloadedFileType::Uncompressed,
+                );
             }
         }
 
